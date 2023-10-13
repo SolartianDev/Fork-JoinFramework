@@ -3,9 +3,11 @@ package com.forkJoinFramework;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ForkJoinPool;
 
-public class SumaTareaRecursivaConForkJoinPool extends RecursiveTask<Integer> {  // (1) Define una clase llamada SumaTareaRecursivaConForkJoinPool que extiende RecursiveTask.
+public class SumaTareaRecursivaConForkJoinPool extends RecursiveTask<Integer> {
+    // (1) Define una clase llamada SumaTareaRecursivaConForkJoinPool que extiende RecursiveTask.
 
-    private static final int UMBRAL = 5;  // (2) Define una constante llamada UMBRAL para determinar cuándo calcular la suma directamente.
+    private static final int UMBRAL = 5; 
+    // (2) Define una constante llamada UMBRAL para determinar cuándo calcular la suma directamente.
     private int[] array;  // (3) Declara un arreglo de enteros en el que se calculará la suma.
     private int inicio;  // (4) Declara una variable para el índice de inicio del sub-array.
     private int fin;  // (5) Declara una variable para el índice de fin del sub-array.
@@ -16,24 +18,32 @@ public class SumaTareaRecursivaConForkJoinPool extends RecursiveTask<Integer> { 
         this.fin = fin;
     }
 
-    @Override
-    protected Integer compute() {  // (7) Implementa el método compute(), que se ejecuta cuando se inicia una tarea RecursiveTask.
-        if (fin - inicio <= UMBRAL) {  // (8) Comprueba si el tamaño del sub-array es menor o igual al umbral.
-            int suma = 0;  // (9) Inicializa una variable para la suma.
-            for (int i = inicio; i < fin; i++) {  // (10) Recorre el sub-array para calcular la suma.
-                suma += array[i];  // (11) Suma el valor del elemento actual al acumulador de la suma.
+    @Override// (7) Implementa el método compute(), que se ejecuta cuando se inicia una tarea RecursiveTask.
+    protected Integer compute() {  
+        if (fin - inicio <= UMBRAL) {
+            // (8) Comprueba si el tamaño del sub-array es menor o igual al umbral.
+            int suma = 0;
+            // (9) Inicializa una variable para la suma.
+            for (int i = inicio; i < fin; i++) { 
+                // (10) Recorre el sub-array para calcular la suma.
+                suma += array[i];
+                // (11) Suma el valor del elemento actual al acumulador de la suma.
             }
             return suma;  // (12) Devuelve la suma total del sub-array.
         } else {
             int mitad = (inicio + fin) / 2;  // (13) Calcula el punto medio del sub-array.
-            SumaTareaRecursivaConForkJoinPool tareaIzquierda = new SumaTareaRecursivaConForkJoinPool(array, inicio, mitad);  // (14) Crea una nueva tarea para la primera mitad del sub-array.
-            SumaTareaRecursivaConForkJoinPool tareaDerecha = new SumaTareaRecursivaConForkJoinPool(array, mitad, fin);  // (15) Crea una nueva tarea para la segunda mitad del sub-array.
+            SumaTareaRecursivaConForkJoinPool tareaIzquierda = new SumaTareaRecursivaConForkJoinPool(array, inicio, mitad); 
+            // (14) Crea una nueva tarea para la primera mitad del sub-array.
+            SumaTareaRecursivaConForkJoinPool tareaDerecha = new SumaTareaRecursivaConForkJoinPool(array, mitad, fin); 
+            // (15) Crea una nueva tarea para la segunda mitad del sub-array.
 
             // Realizar la bifurcación (fork) de las sub-tareas y obtener los resultados
-            invokeAll(tareaIzquierda, tareaDerecha);  // (16) Bifurca (fork) ambas sub-tareas y ejecútalas en paralelo.
+            invokeAll(tareaIzquierda, tareaDerecha);
+            // (16) Bifurca (fork) ambas sub-tareas y ejecútalas en paralelo.
 
             // Combinar los resultados y devolver el resultado total
-            return tareaIzquierda.join() + tareaDerecha.join();  // (17) Combina los resultados de las sub-tareas y devuelve la suma total.
+            return tareaIzquierda.join() + tareaDerecha.join();
+            // (17) Combina los resultados de las sub-tareas y devuelve la suma total.
         }
     }
 

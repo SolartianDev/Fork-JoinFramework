@@ -25,13 +25,18 @@ public class Main {
 //        System.out.println("Valor máximo encontrado:" + maximo);
 //        Encuentra el valor máximo en el arreglo utilizando un bucle. Este código también está comentado.
 
-        ForkJoinPool pool = new ForkJoinPool(); // (2) Crea una instancia de ForkJoinPool, que se utiliza para la concurrencia.
+        ForkJoinPool pool = new ForkJoinPool();
+        // (2) Crea una instancia de ForkJoinPool, que se utiliza para la concurrencia.
 
-        AccionArrayAleatorio accion = new AccionArrayAleatorio(datos, 0, datos.length-1, datos.length/16); // (3) Crea una instancia de AccionArrayAleatorio para generar números aleatorios en el arreglo.
+        AccionArrayAleatorio accion = new AccionArrayAleatorio(datos, 0, datos.length-1, datos.length/16);
+        // (3) Crea una instancia de AccionArrayAleatorio para generar números aleatorios en el arreglo.
         pool.invoke(accion); // (4) Invoca la acción para realizar la generación de números aleatorios en paralelo.
 
-        TareaEncontrarMaximo tarea = new TareaEncontrarMaximo(datos, 0, datos.length-1, datos.length/16); // (5) Crea una instancia de TareaEncontrarMaximo para encontrar el valor máximo en el arreglo.
-        Integer resultado = pool.invoke(tarea); // (6) Invoca la tarea para encontrar el valor máximo en paralelo.
-        System.out.println("Valor máximo encontrado:" + resultado); // (7) Imprime el valor máximo encontrado en el arreglo.
+        TareaEncontrarMaximo tarea = new TareaEncontrarMaximo(datos, 0, datos.length-1, datos.length/16);
+        // (5) Crea una instancia de TareaEncontrarMaximo para encontrar el valor máximo en el arreglo.
+        Integer resultado = pool.invoke(tarea);
+        // (6) Invoca la tarea para encontrar el valor máximo en paralelo.
+        System.out.println("Valor máximo encontrado:" + resultado); 
+        // (7) Imprime el valor máximo encontrado en el arreglo.
     }
 }

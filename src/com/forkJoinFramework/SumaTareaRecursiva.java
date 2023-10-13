@@ -2,7 +2,8 @@ package com.forkJoinFramework;
 
 import java.util.concurrent.RecursiveTask;
 
-public class SumaTareaRecursiva extends RecursiveTask<Integer> {  // (1) Define una clase llamada SumaTareaRecursiva que extiende RecursiveTask.
+public class SumaTareaRecursiva extends RecursiveTask<Integer> {
+    // (1) Define una clase llamada SumaTareaRecursiva que extiende RecursiveTask.
 
     private static final int UMBRAL = 5;  // (2) Define una constante llamada UMBRAL para determinar cuándo calcular la suma directamente.
     private int[] array;  // (3) Declara un arreglo de enteros en el que se calculará la suma.
